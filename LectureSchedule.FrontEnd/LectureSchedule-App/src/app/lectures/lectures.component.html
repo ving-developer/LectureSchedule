@@ -1,8 +1,56 @@
-<h1>Component Lectures</h1>
+<h2>Lectures</h2>
 
-<div *ngFor="let lecture of lectures">
-  <p><b>Theme:</b> {{lecture.theme}}</p>
+<hr>
+<br>
+<br>
 
-  <p><b>Location:</b> {{lecture.local}}</p>
-  <hr/>
+<div action="">
+  <div class="input-group mb-2 w-25">
+    <label class="input-group-text">Search: </label>
+    <input type="text" class="form-control"
+    [(ngModel)]="listFilter"
+    placeholder="Find name">
+  </div>
 </div>
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th style="min-width: 8em;">
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
+          {{hideImage ? 'Show Images' : 'Hide Images'}}</button>
+      </th>
+      <th>#</th>
+      <th>Theme</th>
+      <th>Location</th>
+      <th>Data</th>
+      <th>Peoples</th>
+      <th>Adress</th>
+      <th style="min-width: 8em;">Options</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="lectures.length">
+    <tr *ngFor="let lecture of filteredLectures">
+      <td>
+        <img [collapse]="hideImage" [isAnimated]="true"
+        src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
+      </td>
+      <td>{{lecture.lectureId}}</td>
+      <td>{{lecture.theme}}</td>
+      <td>{{lecture.local}}</td>
+      <td>{{lecture.date.substring(0,10)}}</td>
+      <td>{{lecture.maxPeopleSupported}}</td>
+      <td>{{lecture.adress}}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary">Edit</button>
+        <button type="button" class="btn btn-sm btn-danger ms-2">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!lectures.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>No lecture found</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
