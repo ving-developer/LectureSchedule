@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Lecture } from '../models/Lecture';
 import { LectureService } from '../services/lecture.service';
 
@@ -15,6 +16,7 @@ export class LecturesComponent implements OnInit {
   public imageMargin = 2;
   public hideImage = true;
   private listFilterString = '';
+  public modalRef?: BsModalRef;
 
   public get listFilter(): string{
     return this.listFilterString;
@@ -33,7 +35,9 @@ export class LecturesComponent implements OnInit {
     );
   }
 
-  constructor(private lectureService: LectureService) { }
+  constructor(
+    private lectureService: LectureService,
+    private modalService: BsModalService) { }
 
   public ngOnInit(): void {
     this.loadLectures()
@@ -53,5 +57,17 @@ export class LecturesComponent implements OnInit {
       complete: () => {}
     };
     this.lectureService.getLectures().subscribe(observer);
+  }
+
+  public openDeleteModal(template: TemplateRef<any>): void{
+    this.modalRef = this.modalService.show(template);
+  }
+
+  public confirmDelete(): void{
+    this.modalRef?.hide();
+  }
+
+  public cancelDelete(): void{
+    this.modalRef?.hide();
   }
 }
