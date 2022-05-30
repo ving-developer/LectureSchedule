@@ -1,54 +1,57 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Lecture } from '../models/Lecture';
+import { LectureService } from '../services/lecture.service';
 
 @Component({
   selector: 'app-lectures',
   templateUrl: './lectures.component.html',
-  styleUrls: ['./lectures.component.scss']
+  styleUrls: ['./lectures.component.scss'],
+  // providers: [LectureService] one way of receiving LectureService by dependency injection. The best approach is including in module.ts
 })
 export class LecturesComponent implements OnInit {
-  public lectures: any = [];
+  public lectures: Lecture[] = [];
+  public filteredLectures: Lecture[] = [];
   public imageWidth = 100;
   public imageMargin = 2;
   public hideImage = true;
-  private _listFilter = '';
-  public filteredLectures: any = [];
+  private listFilterString = '';
 
   public get listFilter(): string{
-    return this._listFilter;
+    return this.listFilterString;
   }
 
   public set listFilter(value: string){
-    this._listFilter = value;
-    this.filteredLectures = this.listFilter ? this.filterLectures(this._listFilter) : this.lectures;
+    this.listFilterString = value;
+    this.filteredLectures = this.listFilter ? this.filterLectures(this.listFilterString) : this.lectures;
   }
 
-  filterLectures(filter: string): any{
+  filterLectures(filter: string): Lecture[]{
     filter = filter.toLowerCase();
     return this.lectures.filter(
-      (lecture: any) => lecture.theme.toLowerCase().indexOf(filter) !== -1 ||
+      (lecture: Lecture) => lecture.theme.toLowerCase().indexOf(filter) !== -1 ||
             lecture.local.toLowerCase().indexOf(filter) !== -1
     );
   }
 
-  constructor(private _http: HttpClient) { }
+  constructor(private lectureService: LectureService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadLectures()
   }
 
-  controlImageVisibility(){
+  public controlImageVisibility(): void{
     this.hideImage = !this.hideImage;
   }
 
   public loadLectures() : void {
-    this._http.get('https://localhost:5001/Lectures').subscribe(
-      res => {
-        this.lectures = res;
-        this.filteredLectures = res;
+    const observer = {
+      next: (lectures: Lecture[]) => {
+        this.lectures = lectures;
+        this.filteredLectures = lectures;
       },
-      error => console.log(error)
-    );
+      error: (error: any) => console.log(error),
+      complete: () => {}
+    };
+    this.lectureService.getLectures().subscribe(observer);
   }
-
 }

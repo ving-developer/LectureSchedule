@@ -11,6 +11,7 @@ import { SpeakerComponent } from './speaker/speaker.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
+import { LectureService } from './services/lecture.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { NavComponent } from './nav/nav.component';
     CollapseModule.forRoot(),
     FormsModule
   ],
-  providers: [],
+  providers: [LectureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
