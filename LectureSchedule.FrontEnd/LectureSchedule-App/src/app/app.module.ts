@@ -8,7 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LecturesComponent } from './lectures/lectures.component';
 import { SpeakerComponent } from './speaker/speaker.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { LectureService } from './services/lecture.service';
@@ -32,4 +33,8 @@ import { LectureService } from './services/lecture.service';
   providers: [LectureService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary){
+    library.addIconPacks(fas);
+  }
+}

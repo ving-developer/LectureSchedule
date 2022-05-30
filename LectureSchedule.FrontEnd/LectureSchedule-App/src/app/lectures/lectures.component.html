@@ -1,5 +1,4 @@
 <h2>Lectures</h2>
-
 <hr>
 <br>
 <br>
@@ -17,7 +16,8 @@
     <tr>
       <th style="min-width: 8em;">
         <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
-          {{hideImage ? 'Show Images' : 'Hide Images'}}</button>
+          <fa-icon [icon]="hideImage ? 'eye' : 'eye-slash'"></fa-icon>
+          {{hideImage ? 'Show' : 'Hide'}}</button>
       </th>
       <th>#</th>
       <th>Theme</th>
@@ -34,10 +34,10 @@
         <img [collapse]="hideImage" [isAnimated]="true"
         src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
       </td>
-      <td>{{lecture.lectureId}}</td>
+      <td>{{lecture.id}}</td>
       <td>{{lecture.theme}}</td>
       <td>{{lecture.local}}</td>
-      <td>{{lecture.date.substring(0,10)}}</td>
+      <td>{{lecture.date}}</td>
       <td>{{lecture.maxPeopleSupported}}</td>
       <td>{{lecture.adress}}</td>
       <td>
