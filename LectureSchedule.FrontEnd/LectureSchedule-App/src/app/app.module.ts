@@ -1,17 +1,24 @@
+//angular
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { FormsModule } from '@angular/forms';
-
+//angular bootstrap
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+//components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LecturesComponent } from './lectures/lectures.component';
 import { SpeakerComponent } from './speaker/speaker.component';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
+import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+//font awesome
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+//services
 import { LectureService } from './services/lecture.service';
 
 @NgModule({
@@ -19,7 +26,8 @@ import { LectureService } from './services/lecture.service';
     AppComponent,
     LecturesComponent,
     SpeakerComponent,
-    NavComponent
+    NavComponent,
+    DateTimeFormatPipe
   ],
   imports: [
     BrowserModule,
@@ -28,7 +36,9 @@ import { LectureService } from './services/lecture.service';
     FontAwesomeModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
-    FormsModule
+    FormsModule,
+    TooltipModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [LectureService],
   bootstrap: [AppComponent]

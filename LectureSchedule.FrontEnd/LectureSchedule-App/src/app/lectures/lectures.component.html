@@ -37,14 +37,14 @@
       <td>{{lecture.id}}</td>
       <td>{{lecture.theme}}</td>
       <td>{{lecture.local}}</td>
-      <td>{{lecture.date}}</td>
+      <td>{{lecture.date | DateTimeFormat}}</td>
       <td>{{lecture.maxPeopleSupported}}</td>
       <td>{{lecture.adress}}</td>
       <td>
-        <button type="button" class="btn btn-sm btn-primary">
+        <button type="button" class="btn btn-sm btn-primary" tooltip="Edit">
           <fa-icon icon="edit"></fa-icon>
         </button>
-        <button type="button" class="btn btn-sm btn-danger ms-2">
+        <button type="button" class="btn btn-sm btn-danger ms-2" tooltip="Delete">
           <fa-icon icon="trash"></fa-icon>
         </button>
       </td>
