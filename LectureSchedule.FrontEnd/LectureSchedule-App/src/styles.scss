@@ -5,3 +5,6 @@
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+/* Importing ngx-toastr css */
+@import '~ngx-toastr/toastr.css';

@@ -1,5 +1,9 @@
+//angular imports
 import { Component, OnInit, TemplateRef } from '@angular/core';
+//installing packages imports
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+//internal imports
 import { Lecture } from '../models/Lecture';
 import { LectureService } from '../services/lecture.service';
 
@@ -37,6 +41,7 @@ export class LecturesComponent implements OnInit {
 
   constructor(
     private lectureService: LectureService,
+    private toastr: ToastrService,
     private modalService: BsModalService) { }
 
   public ngOnInit(): void {
@@ -64,6 +69,7 @@ export class LecturesComponent implements OnInit {
   }
 
   public confirmDelete(): void{
+    this.toastr.warning('Lecture has been deleted.', 'Sucess!');
     this.modalRef?.hide();
   }
 
