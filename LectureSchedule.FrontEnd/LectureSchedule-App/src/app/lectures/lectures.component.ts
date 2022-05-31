@@ -2,6 +2,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 //installing packages imports
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 //internal imports
 import { Lecture } from '../models/Lecture';
@@ -42,10 +43,12 @@ export class LecturesComponent implements OnInit {
   constructor(
     private lectureService: LectureService,
     private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
     private modalService: BsModalService) { }
 
   public ngOnInit(): void {
-    this.loadLectures()
+    this.spinner.show();;
+    this.loadLectures();
   }
 
   public controlImageVisibility(): void{
@@ -58,8 +61,11 @@ export class LecturesComponent implements OnInit {
         this.lectures = lectures;
         this.filteredLectures = lectures;
       },
-      error: (error: any) => console.log(error),
-      complete: () => {}
+      error: (error: any) => {
+        this.spinner.hide();
+        this.toastr.error('An error has occurred.', 'Ops!');
+      },
+      complete: () => this.spinner.hide()
     };
     this.lectureService.getLectures().subscribe(observer);
   }

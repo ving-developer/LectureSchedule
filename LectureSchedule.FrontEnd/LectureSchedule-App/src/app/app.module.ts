@@ -10,6 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
 //components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ import { LectureService } from './services/lecture.service';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
-    })
+    }),
+    NgxSpinnerModule
   ],
   providers: [LectureService],
   bootstrap: [AppComponent],
