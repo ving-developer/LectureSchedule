@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "LectureSchedule-App"
+  "cli": {
+    "analytics": "e3b36628-e95d-4545-a5cf-60f0b4a6dbd9"
+  }
 }
