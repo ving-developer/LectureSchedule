@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
+  <div class="container-fluid ">
     <a class="navbar-brand" href="#">LectureSchedule</a>
     <!-- Collapse button -->
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,24 +9,26 @@
     <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Lectures</a>
+          <a class="nav-link" routerLink="lectures" routerLinkActive="active">Lectures</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Speakers</a>
+          <a class="nav-link" routerLink="speakers" routerLinkActive="active">Speakers</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contacts</a>
+          <a class="nav-link" routerLink="contacts" routerLinkActive="active">Contacts</a>
         </li>
       </ul>
       <!-- Dropdown profile menu -->
       <ul class="navbar-nav">
         <li class="nav-item dropdown" dropdown>
-          <a dropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          <a dropdownToggle class="nav-link dropdown-toggle"
+            style="cursor: pointer"
+            id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Ving Developer
           </a>
           <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" routerLink="profile">
               Profile
             </a>
             <div role="separator" class="divider"></div>

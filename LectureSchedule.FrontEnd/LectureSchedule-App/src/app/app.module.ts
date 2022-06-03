@@ -14,11 +14,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
 //components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LecturesComponent } from './lectures/lectures.component';
-import { SpeakerComponent } from './speaker/speaker.component';
+import { LecturesComponent } from './components/lectures/lectures.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SpeakerComponent } from './components/speaker/speaker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { TitleComponent } from './shared/title/title.component';
 //font awesome
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -30,8 +34,12 @@ import { LectureService } from './services/lecture.service';
     AppComponent,
     LecturesComponent,
     SpeakerComponent,
+    ContactsComponent,
+    DashboardComponent,
+    ProfileComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    TitleComponent
   ],
   imports: [
     CommonModule,
