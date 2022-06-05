@@ -8,53 +8,56 @@
     placeholder="Find name">
   </div>
 </div>
-<table class="table table-striped">
-  <thead class="table-dark">
-    <tr>
-      <th style="min-width: 8em;">
-        <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
-          <fa-icon [icon]="hideImage ? 'eye' : 'eye-slash'"></fa-icon>
-          {{hideImage ? 'Show' : 'Hide'}}</button>
-      </th>
-      <th>#</th>
-      <th>Theme</th>
-      <th>Location</th>
-      <th>Data</th>
-      <th>Peoples</th>
-      <th>Adress</th>
-      <th style="min-width: 8em;">Options</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="lectures.length">
-    <tr *ngFor="let lecture of filteredLectures">
-      <td>
-        <img [collapse]="hideImage" [isAnimated]="true"
-        src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
-      </td>
-      <td>{{lecture.id}}</td>
-      <td>{{lecture.theme}}</td>
-      <td>{{lecture.local}}</td>
-      <td>{{lecture.date | DateTimeFormat}}</td>
-      <td>{{lecture.maxPeopleSupported}}</td>
-      <td>{{lecture.adress}}</td>
-      <td>
-        <button type="button" class="btn btn-sm btn-primary" tooltip="Edit">
-          <fa-icon icon="edit"></fa-icon>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger ms-2" tooltip="Delete" (click)="openDeleteModal(content)">
-          <fa-icon icon="trash"></fa-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="!lectures.length">
-    <tr>
-      <td colspan="8" class="text-center">
-        <h4>No lecture found</h4>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th style="min-width: 8em;">
+          <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
+            <fa-icon [icon]="hideImage ? 'eye' : 'eye-slash'"></fa-icon>
+            {{hideImage ? 'Show' : 'Hide'}}</button>
+        </th>
+        <th>#</th>
+        <th>Theme</th>
+        <th>Location</th>
+        <th>Data</th>
+        <th>Peoples</th>
+        <th>Adress</th>
+        <th style="min-width: 8em;">Options</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="lectures.length">
+      <tr *ngFor="let lecture of filteredLectures">
+        <td>
+          <img [collapse]="hideImage" [isAnimated]="true"
+          src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
+        </td>
+        <td>{{lecture.id}}</td>
+        <td>{{lecture.theme}}</td>
+        <td>{{lecture.local}}</td>
+        <td>{{lecture.date | DateTimeFormat}}</td>
+        <td>{{lecture.maxPeopleSupported}}</td>
+        <td>{{lecture.adress}}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-primary" tooltip="Edit">
+            <fa-icon icon="edit"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-sm btn-danger ms-2" tooltip="Delete" (click)="openDeleteModal(content)">
+            <fa-icon icon="trash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!lectures.length">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>No lecture found</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
 <!-- Modal -->
 <ng-template #content let-modal>
