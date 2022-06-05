@@ -7,7 +7,10 @@
     </div>
   </div>
   <div>
-    <button class="btn btn-outline-light" *ngIf="listButton">
+    <button
+    (click)="redirectToList()"
+    class="btn btn-outline-light"
+    *ngIf="hasListButton">
       List {{title}}
     </button>
   </div>

@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="d-flex card-header">
+    <div class="flex-fill">
+      <div class="input-group mb-2 pe-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Search: </div>
+        </div>
+
+        <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="listFilter"
+        placeholder="Find by name or theme">
+      </div>
+    </div>
+    <div>
+      <a routerLink="/lectures/details" class="d-flex btn btn-outline-success">
+        <fa-icon [icon]="'plus-circle'"></fa-icon>
+        <span class="ms-1 d-none d-sm-block">New</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th class="d-none d-sm-table-cell"  style="min-width: 8em;">
+            <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
+              <fa-icon [icon]="hideImage ? 'eye' : 'eye-slash'"></fa-icon>
+              {{hideImage ? 'Show' : 'Hide'}}</button>
+            </th>
+            <th>Theme</th>
+            <th class="d-none d-md-table-cell">Location</th>
+            <th>Data</th>
+            <th>Peoples</th>
+            <th class="d-none d-lg-table-cell">Adress</th>
+            <th style="min-width: 6em;">Options</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="lectures.length">
+          <tr *ngFor="let lecture of filteredLectures">
+            <td class="d-none d-sm-table-cell">
+              <img [collapse]="hideImage" [isAnimated]="true"
+              src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
+            </td>
+            <td>{{lecture.theme}}</td>
+            <td class="d-none d-md-table-cell">{{lecture.local}}</td>
+            <td>{{lecture.date | DateTimeFormat}}</td>
+            <td>{{lecture.maxPeopleSupported}}</td>
+            <td class="d-none d-lg-table-cell">{{lecture.adress}}</td>
+            <td>
+              <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="details(lecture.id)">
+                <fa-icon icon="edit"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-sm btn-danger ms-2" tooltip="Delete" (click)="openDeleteModal(content)">
+                <fa-icon icon="trash"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="!lectures.length">
+          <tr>
+            <td colspan="8" class="text-center">
+              <h4>No lecture found</h4>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #content let-modal>
+    <div class="modal-body text-center">
+      <p>Do you want to delete lecture? This operation is irreversible.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="cancelDelete()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
+    </div>
+  </ng-template>

@@ -28,6 +28,9 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 //services
 import { LectureService } from './services/lecture.service';
+import { LectureDetailsComponent } from './components/lectures/lecture-details/lecture-details.component';
+import { LectureListComponent } from './components/lectures/lecture-list/lecture-list.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { LectureService } from './services/lecture.service';
     ProfileComponent,
     NavComponent,
     DateTimeFormatPipe,
-    TitleComponent
+    TitleComponent,
+    LectureDetailsComponent,
+    LectureListComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
