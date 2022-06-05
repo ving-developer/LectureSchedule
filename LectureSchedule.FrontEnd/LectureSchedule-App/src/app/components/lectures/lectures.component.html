@@ -29,32 +29,30 @@ subtitle="Calendar of lectures that are scheduled to take place"></app-title>
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
-          <th style="min-width: 8em;">
+          <th class="d-none d-sm-table-cell"  style="min-width: 8em;">
             <button type="button" class="btn btn-outline-light btn-sm" (click)="controlImageVisibility()">
               <fa-icon [icon]="hideImage ? 'eye' : 'eye-slash'"></fa-icon>
               {{hideImage ? 'Show' : 'Hide'}}</button>
             </th>
-            <th>#</th>
             <th>Theme</th>
-            <th>Location</th>
+            <th class="d-none d-md-table-cell">Location</th>
             <th>Data</th>
             <th>Peoples</th>
-            <th>Adress</th>
-            <th style="min-width: 8em;">Options</th>
+            <th class="d-none d-lg-table-cell">Adress</th>
+            <th style="min-width: 6em;">Options</th>
           </tr>
         </thead>
         <tbody *ngIf="lectures.length">
           <tr *ngFor="let lecture of filteredLectures">
-            <td>
+            <td class="d-none d-sm-table-cell">
               <img [collapse]="hideImage" [isAnimated]="true"
               src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
             </td>
-            <td>{{lecture.id}}</td>
             <td>{{lecture.theme}}</td>
-            <td>{{lecture.local}}</td>
+            <td class="d-none d-md-table-cell">{{lecture.local}}</td>
             <td>{{lecture.date | DateTimeFormat}}</td>
             <td>{{lecture.maxPeopleSupported}}</td>
-            <td>{{lecture.adress}}</td>
+            <td class="d-none d-lg-table-cell">{{lecture.adress}}</td>
             <td>
               <button type="button" class="btn btn-sm btn-primary" tooltip="Edit">
                 <fa-icon icon="edit"></fa-icon>
