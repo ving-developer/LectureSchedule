@@ -1,4 +1,14 @@
-<h2>{{title}}</h2>
-<hr>
-<br>
-<br>
+<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
+  <div class="d-flex align-items-center me-auto">
+    <fa-icon class="me-3" [icon]="['fas', iconProp]"></fa-icon>
+    <div class="lh-100">
+      <h4 class="mb-0">{{title}}</h4>
+      <small>{{subtitle}}</small>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-outline-light" *ngIf="listButton">
+      List {{title}}
+    </button>
+  </div>
+</div>

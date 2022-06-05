@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-title',
@@ -7,6 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
   @Input() title?: string;
+  @Input() iconProp: IconProp = 'triangle-exclamation';
+  @Input() subtitle = '';
+  @Input() listButton = false;
+
   constructor() { }
 
   ngOnInit() {
