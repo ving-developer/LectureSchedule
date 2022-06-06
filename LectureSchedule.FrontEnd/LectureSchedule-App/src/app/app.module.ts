@@ -17,10 +17,10 @@ import { AppComponent } from './app.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { SpeakerComponent } from './components/speaker/speaker.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TitleComponent } from './shared/title/title.component';
 //font awesome
@@ -31,6 +31,8 @@ import { LectureService } from './services/lecture.service';
 import { LectureDetailsComponent } from './components/lectures/lecture-details/lecture-details.component';
 import { LectureListComponent } from './components/lectures/lecture-list/lecture-list.component';
 import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { UserComponent } from './components/user/user.component';
     TitleComponent,
     LectureDetailsComponent,
     LectureListComponent,
-    UserComponent
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     CommonModule,

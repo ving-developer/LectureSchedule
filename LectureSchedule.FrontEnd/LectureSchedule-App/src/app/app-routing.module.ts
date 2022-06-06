@@ -5,12 +5,23 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LectureDetailsComponent } from './components/lectures/lecture-details/lecture-details.component';
 import { LectureListComponent } from './components/lectures/lecture-list/lecture-list.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { SpeakerComponent } from './components/speaker/speaker.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {path: 'lectures', redirectTo:'lectures/list'},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {
+    path: 'user', component: UserComponent,
+    children: [
+      {path: 'login', component: LoginComponent},
+      {path: 'registration', component: RegistrationComponent},
+    ]
+  },
+  {path: 'user/profile', component: ProfileComponent},
   {
     path: 'lectures', component: LecturesComponent,
     children: [
@@ -21,7 +32,6 @@ const routes: Routes = [
   },
   {path: 'contacts', component: ContactsComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'profile', component: ProfileComponent},
   {path: 'speakers', component: SpeakerComponent}
 ];
 
