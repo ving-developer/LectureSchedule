@@ -1,12 +1,5 @@
 //angular imports
 import { Component, OnInit, TemplateRef } from '@angular/core';
-//installing packages imports
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-//internal imports
-import { Lecture } from '../../models/Lecture';
-import { LectureService } from '../../services/lecture.service';
 
 @Component({
   selector: 'app-lectures',

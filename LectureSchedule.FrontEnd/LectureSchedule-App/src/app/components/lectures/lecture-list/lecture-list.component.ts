@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Lecture } from 'src/app/models/Lecture';
-import { LectureService } from 'src/app/services/lecture.service';
+import { Lecture } from '@app/models/Lecture';
+import { LectureService } from '@app/services/lecture.service';
 
 @Component({
   selector: 'app-lecture-list',

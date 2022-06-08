@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Lecture } from '../models/Lecture';
+import { Lecture } from '@app/models/Lecture';
 
 @Injectable(
   // {providedIn: 'root'} one way of receiving LectureService by dependency injection. The best approach is including in module.ts
