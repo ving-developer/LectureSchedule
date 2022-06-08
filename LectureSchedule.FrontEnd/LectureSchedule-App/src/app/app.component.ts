@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'LectureSchedule-App';
+  constructor(private router: Router){}
+
+  public showNav(): boolean{
+    return !["/user/login", '/user/registration'].includes(this.router.url);
+  }
 }
