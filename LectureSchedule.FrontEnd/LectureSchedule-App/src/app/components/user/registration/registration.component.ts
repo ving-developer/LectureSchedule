@@ -8,8 +8,10 @@ import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  public dontAgree = true;
   form?: FormGroup;
   get fcontrols() : any { return this.form?.controls;}
+
 
   constructor(public fb: FormBuilder) { }
 
@@ -32,5 +34,9 @@ export class RegistrationComponent implements OnInit {
         confirmPassword: ['', Validators.required],
       },
       formOptions);
+    }
+
+    public controlAgreement(): void{
+      this.dontAgree = !this.dontAgree;
     }
   }

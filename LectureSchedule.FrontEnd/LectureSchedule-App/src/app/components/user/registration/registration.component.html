@@ -88,13 +88,13 @@
       </div>
       <div class="row p-1 mb-3">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input me-2" id="customCheck1">
+          <input type="checkbox" class="custom-control-input me-2" (click)="controlAgreement()">
           <label class="custom-control-label">I agree with the <a href="#">terms of use</a>.</label>
         </div>
       </div>
       <div class="row mb-3">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button class="btn btn-lg btn-success btn-block px-5" [ngClass]="{'disabled' : dontAgree || !form?.valid}">
             Register
           </button>
         </div>
