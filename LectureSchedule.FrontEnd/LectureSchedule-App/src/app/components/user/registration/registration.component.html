@@ -9,55 +9,100 @@
 
   <div class="col-md-6">
 
-    <form class="p-1 container">
+    <form [formGroup]="form" class="p-1 container">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">User registration</h3>
       </div>
       <div class="row mb-3">
         <div class="form-group col-sm-6">
-          <label>Primeiro Nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+          <label>First name</label>
+          <input type="text" class="form-control"
+          formControlName="firstName"
+          [ngClass]="{'is-invalid': fcontrols.firstName.errors && fcontrols.firstName.touched }"
+          placeholder="First name here" />
+          <div class="invalid-feedback">
+            First name is required
+          </div>
         </div>
         <div class="form-group col-sm-6">
-          <label>Último nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Último nome" />
+          <label>Last name</label>
+          <input type="text" class="form-control"
+          formControlName="lastName"
+          [ngClass]="{'is-invalid': fcontrols.lastName.errors && fcontrols.lastName.touched }"
+          placeholder="Last name here" />
+          <div class="invalid-feedback">
+            Last name is required
+          </div>
         </div>
       </div>
       <div class="form-group mb-3">
         <label for="">Email:</label>
-        <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
+        <input class="form-control" type="text"
+        formControlName="email"
+        [ngClass]="{'is-invalid': fcontrols.email.errors && fcontrols.email.touched }"
+        placeholder="Email" />
+        <div *ngIf="fcontrols.email.errors?.required && fcontrols.email.touched" class="invalid-feedback">
+          Email is required
+        </div>
+        <div *ngIf="fcontrols.email.errors?.email && fcontrols.email.touched" class="invalid-feedback">
+          Email must be valid email
+        </div>
       </div>
       <div class="form-group mb-3">
-        <label for="">Usuario:</label>
-        <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />
+        <label for="">User:</label>
+        <input class="form-control" type="text"
+        formControlName="userName"
+        [ngClass]="{'is-invalid': fcontrols.userName.errors && fcontrols.userName.touched }"
+        placeholder="User name" />
+        <div class="invalid-feedback">
+          User is required
+        </div>
       </div>
       <div class="row mb-3">
         <div class="form-group col-sm-6">
-          <label for="">Senha:</label>
-          <input class="form-control" type="password" placeholder="Digite uma Senha" />
+          <label for="">Password:</label>
+          <input class="form-control" type="password"
+          formControlName="password"
+          [ngClass]="{'is-invalid': fcontrols.password.errors && fcontrols.password.touched }"
+          placeholder="Insert password" />
+          <div *ngIf="fcontrols.password.errors?.required && fcontrols.password.touched" class="invalid-feedback">
+            Password is required
+          </div>
+          <div *ngIf="fcontrols.password.errors?.minlength && fcontrols.password.touched"  class="invalid-feedback">
+            Password must be longer than 6 characters
+          </div>
         </div>
         <div class="form-group col-sm-6">
-          <label for="">Confirmar Senha:</label>
-          <input class="form-control" type="password" placeholder="Confirme a Senha" />
+          <label for="">Confirm password:</label>
+          <input class="form-control" type="password"
+          formControlName="confirmPassword"
+          [ngClass]="{'is-invalid': fcontrols.confirmPassword.errors && fcontrols.confirmPassword.touched }"
+          placeholder="Repeat password" />
+          <div *ngIf="fcontrols.confirmPassword.errors?.required && fcontrols.confirmPassword.touched" class="invalid-feedback">
+            Confirm password is required
+          </div>
+          <div *ngIf="fcontrols.confirmPassword.errors?.mustMatch && fcontrols.confirmPassword.touched" class="invalid-feedback">
+            Confirm password must match password
+          </div>
         </div>
       </div>
       <div class="row p-1 mb-3">
         <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input me-2" id="customCheck1">
-          <label class="custom-control-label">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
+          <label class="custom-control-label">I agree with the <a href="#">terms of use</a>.</label>
         </div>
       </div>
       <div class="row mb-3">
         <div class="form-group col-12">
           <button class="btn btn-lg btn-success btn-block px-5">
-            Registar
+            Register
           </button>
         </div>
       </div>
       <div class="row mb-3">
         <div class="form-group col-12">
           <a class="btn btn-link btn-block" routerLink="/user/login">
-            Já sou Cadastrado
+            I'm already registered
           </a>
         </div>
       </div>

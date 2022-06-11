@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
 
 @Component({
   selector: 'app-registration',
@@ -6,10 +8,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  form?: FormGroup;
+  get fcontrols() : any { return this.form?.controls;}
 
-  constructor() { }
+  constructor(public fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.validate();
   }
 
-}
+  public validate(){
+    const formOptions : AbstractControlOptions = {
+      validators: ValidatorsFields.MustMatch('password','confirmPassword')
+    };
+
+    this.form = this.fb.group(
+      {
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        userName: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      formOptions);
+    }
+  }
