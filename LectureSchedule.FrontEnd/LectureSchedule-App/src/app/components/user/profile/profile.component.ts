@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
         description: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required]
-      });
+      }, formOptions);
     }
 
     resetForm(event: any){
