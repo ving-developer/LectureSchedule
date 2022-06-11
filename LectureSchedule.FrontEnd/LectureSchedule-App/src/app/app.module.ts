@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 //angular bootstrap
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -69,7 +69,8 @@ import { RegistrationComponent } from './components/user/registration/registrati
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [LectureService],
   bootstrap: [AppComponent],

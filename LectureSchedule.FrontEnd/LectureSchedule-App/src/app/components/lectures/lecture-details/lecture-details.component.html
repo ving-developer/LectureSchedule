@@ -1,45 +1,113 @@
 <div class="card rounded shadow-sm">
-  <form>
+  <form [formGroup]="form">
     <div class="p-3">
       <div class="row">
-        <div class="form-group col-md-12">
-          <label>Tema</label>
-          <input type="text" class="form-control" placeholder="Insira o Tema">
+        <div class="form-group col-md-6">
+          <label>Theme</label>
+          <input type="text" class="form-control"
+            [ngClass]="{ 'is-invalid' : f.theme.errors && f.theme.touched }"
+            formControlName="theme" placeholder="What the lecture is about">
+          <div class="invalid-feedback" *ngIf="f.theme.errors?.required">
+            Theme is required
+          </div>
+          <div class="invalid-feedback" *ngIf="f.theme.errors?.minlength">
+            Theme must contains 4 or more characters
+          </div>
+          <div class="invalid-feedback" *ngIf="f.theme.errors?.maxlength">
+            Theme must contain less than 50 characters
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Location</label>
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.local.errors && f.local.touched }"
+          formControlName="local" placeholder="Location of the lecture">
+          <div *ngIf="f.local.errors?.required" class="invalid-feedback">
+            Location is required
+          </div>
+          <div class="invalid-feedback" *ngIf="f.local.errors?.minlength">
+            Location must contains 4 or more characters
+          </div>
+          <div class="invalid-feedback" *ngIf="f.local.errors?.maxlength">
+            Location must contain less than 100 characters
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-8">
-          <label>Local</label>
-          <input type="text" class="form-control" placeholder="">
+        <div class="form-group col-md-6">
+          <label>Adress</label>
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.adress.errors && f.adress.touched }"
+          formControlName="adress" placeholder="Address of the lecture location">
+          <div *ngIf="f.adress.errors?.required" class="invalid-feedback">
+            Adress is required
+          </div>
         </div>
         <div class="form-group col-md-4">
-          <label>Data e Hora</label>
-          <input type="datetime" class="form-control" placeholder="">
+          <label>Date</label>
+          <input type="datetime" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.date.errors && f.date.touched }"
+          formControlName="date" placeholder="Lecture date and hour">
+          <div *ngIf="f.date.errors?.required" class="invalid-feedback">
+            Date is required
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-2">
-          <label>Qtd Pessoas</label>
-          <input type="text" class="form-control is-invalid" placeholder="">
+          <label>Peoples</label>
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.maxPeopleSupported.errors && f.maxPeopleSupported.touched }"
+          formControlName="maxPeopleSupported" placeholder="Amount of people">
+          <div *ngIf="f.maxPeopleSupported.errors?.required" class="invalid-feedback">
+            Peoples is required
+          </div>
+          <div class="invalid-feedback" *ngIf="f.maxPeopleSupported.errors?.max">
+            The maximum peoples allowed is 120000
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Phone</label>
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.phone.errors && f.phone.touched }"
+          formControlName="phone" placeholder="(000) 90000-0000">
+          <div *ngIf="f.phone.errors?.required" class="invalid-feedback">
+            Phone is required
+          </div>
         </div>
         <div class="form-group col-md-4">
-          <label>Telefone</label>
-          <input type="text" class="form-control" placeholder="(000) 90000-0000">
-        </div>
-        <div class="form-group col-md-6">
           <label>Email</label>
-          <input type="text" class="form-control" placeholder="e-mail">
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.email.errors && f.email.touched }"
+          formControlName="email" placeholder="e-mail">
+          <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+            Email is required
+          </div>
+          <div class="invalid-feedback" *ngIf="f.email.errors?.email">
+            Invalid email
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Image URL</label>
+          <input type="text" class="form-control"
+          [ngClass]="{ 'is-invalid' : f.imageUrl.errors && f.imageUrl.touched }"
+          formControlName="imageUrl" placeholder="image">
+          <div *ngIf="f.imageUrl.errors?.required" class="invalid-feedback">
+            Image url is required
+          </div>
         </div>
       </div>
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary me-auto border">
-          Cancelar Alteração
+        <button
+        (click)="resetForm()"
+        class="btn btn-outline-secondary me-auto border">
+          Discard Changes
         </button>
-        <button class="btn btn-success">
-          <span class="spinner-border spinner-border-sm me-1"></span>
-          Salvar Evento
+        <button class="btn btn-success" [disabled]="!form?.valid">
+          <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
+          Save Changes
         </button>
       </div>
     </div>
