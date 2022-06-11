@@ -5,7 +5,7 @@
         <div class="form-group col-md-6">
           <label>Theme</label>
           <input type="text" class="form-control"
-            [ngClass]="{ 'is-invalid' : f.theme.errors && f.theme.touched }"
+            [ngClass]="cssInvalidClass(f.theme)"
             formControlName="theme" placeholder="What the lecture is about">
           <div class="invalid-feedback" *ngIf="f.theme.errors?.required">
             Theme is required
@@ -20,7 +20,7 @@
         <div class="form-group col-md-6">
           <label>Location</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.local.errors && f.local.touched }"
+          [ngClass]="cssInvalidClass(f.local)"
           formControlName="local" placeholder="Location of the lecture">
           <div *ngIf="f.local.errors?.required" class="invalid-feedback">
             Location is required
@@ -37,7 +37,7 @@
         <div class="form-group col-md-6">
           <label>Adress</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.adress.errors && f.adress.touched }"
+          [ngClass]="cssInvalidClass(f.adress)"
           formControlName="adress" placeholder="Address of the lecture location">
           <div *ngIf="f.adress.errors?.required" class="invalid-feedback">
             Adress is required
@@ -46,7 +46,7 @@
         <div class="form-group col-md-4">
           <label>Date</label>
           <input type="datetime" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.date.errors && f.date.touched }"
+          [ngClass]="cssInvalidClass(f.date)"
           formControlName="date" placeholder="Lecture date and hour">
           <div *ngIf="f.date.errors?.required" class="invalid-feedback">
             Date is required
@@ -57,7 +57,7 @@
         <div class="form-group col-md-2">
           <label>Peoples</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.maxPeopleSupported.errors && f.maxPeopleSupported.touched }"
+          [ngClass]="cssInvalidClass(f.maxPeopleSupported)"
           formControlName="maxPeopleSupported" placeholder="Amount of people">
           <div *ngIf="f.maxPeopleSupported.errors?.required" class="invalid-feedback">
             Peoples is required
@@ -69,7 +69,7 @@
         <div class="form-group col-md-2">
           <label>Phone</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.phone.errors && f.phone.touched }"
+          [ngClass]="cssInvalidClass(f.phone)"
           formControlName="phone" placeholder="(000) 90000-0000">
           <div *ngIf="f.phone.errors?.required" class="invalid-feedback">
             Phone is required
@@ -78,7 +78,7 @@
         <div class="form-group col-md-4">
           <label>Email</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.email.errors && f.email.touched }"
+          [ngClass]="cssInvalidClass(f.email)"
           formControlName="email" placeholder="e-mail">
           <div *ngIf="f.email.errors?.required" class="invalid-feedback">
             Email is required
@@ -90,7 +90,7 @@
         <div class="form-group col-md-4">
           <label>Image URL</label>
           <input type="text" class="form-control"
-          [ngClass]="{ 'is-invalid' : f.imageUrl.errors && f.imageUrl.touched }"
+          [ngClass]="cssInvalidClass(f.imageUrl)"
           formControlName="imageUrl" placeholder="image">
           <div *ngIf="f.imageUrl.errors?.required" class="invalid-feedback">
             Image url is required

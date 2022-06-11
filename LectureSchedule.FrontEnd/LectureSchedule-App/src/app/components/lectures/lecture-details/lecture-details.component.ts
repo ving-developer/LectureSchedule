@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lecture-details',
@@ -34,5 +34,9 @@ export class LectureDetailsComponent implements OnInit {
 
   public resetForm(){
     this.form?.reset();
+  }
+
+  cssInvalidClass(prop: FormControl): any {
+    return { 'is-invalid': prop.errors && prop.touched };
   }
 }

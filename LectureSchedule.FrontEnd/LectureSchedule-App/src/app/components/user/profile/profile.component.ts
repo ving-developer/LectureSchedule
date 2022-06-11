@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
 
 @Component({
@@ -44,5 +44,9 @@ export class ProfileComponent implements OnInit {
     resetForm(event: any){
       event.preventDefault();
       this.form?.reset();
+    }
+
+    cssInvalidClass(formControl: FormControl): any{
+      return {'is-invalid': formControl.errors && formControl.touched};
     }
   }

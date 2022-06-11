@@ -47,7 +47,7 @@
             <label>First name</label>
             <input
             formControlName="firstName"
-            [ngClass]="{'is-invalid': fcontrols.firstName.errors && fcontrols.firstName.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.firstName)"
             type="text" class="form-control"/>
             <div class="invalid-feedback">
               First name is required
@@ -57,7 +57,7 @@
             <label>Last name</label>
             <input
             formControlName="lastName"
-            [ngClass]="{'is-invalid': fcontrols.lastName.errors && fcontrols.lastName.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.lastName)"
             type="text" class="form-control"/>
             <div class="invalid-feedback">
               Last name is required
@@ -69,7 +69,7 @@
             <label>Title</label>
             <select
             formControlName="title"
-            [ngClass]="{'is-invalid': fcontrols.title.errors && fcontrols.title.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.title)"
             class="form-select">
               <option value=""></option>
               <option value="0">None</option>
@@ -90,7 +90,7 @@
             <label>Function</label>
             <select
             formControlName="function"
-            [ngClass]="{'is-invalid': fcontrols.function.errors && fcontrols.function.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.function)"
             class="form-select">
               <option value=""></option>
               <option value="Participante">Participant</option>
@@ -106,7 +106,7 @@
             <label>Email</label>
             <input
             formControlName="email"
-            [ngClass]="{'is-invalid': fcontrols.email.errors && fcontrols.email.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.email)"
             type="text" class="form-control" />
             <div *ngIf="fcontrols.email.errors?.required && fcontrols.email.touched" class="invalid-feedback">
               Email is required
@@ -119,7 +119,7 @@
             <label>Phone</label>
             <input
             formControlName="phone"
-            [ngClass]="{'is-invalid': fcontrols.phone.errors && fcontrols.phone.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.phone)"
             type="text" class="form-control" />
             <div class="invalid-feedback">
               Phone is required
@@ -129,7 +129,7 @@
             <label>Description</label>
             <input
             formControlName="description"
-            [ngClass]="{'is-invalid': fcontrols.description.errors && fcontrols.description.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.description)"
             type="text" class="form-control" />
             <div class="invalid-feedback">
               Description is required
@@ -145,7 +145,7 @@
             <label>Password</label>
             <input
             formControlName="password"
-            [ngClass]="{'is-invalid': fcontrols.password.errors && fcontrols.password.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.password)"
             type="password" class="form-control" />
             <div *ngIf="fcontrols.password.errors?.required && fcontrols.password.touched" class="invalid-feedback">
               Password is required
@@ -158,7 +158,7 @@
             <label>Confirm password</label>
             <input
             formControlName="confirmPassword"
-            [ngClass]="{'is-invalid': fcontrols.confirmPassword.errors && fcontrols.confirmPassword.touched}"
+            [ngClass]="cssInvalidClass(fcontrols.confirmPassword)"
             type="password" class="form-control" />
             <div *ngIf="fcontrols.confirmPassword.errors?.required && fcontrols.confirmPassword.touched" class="invalid-feedback">
               Confirm password is required

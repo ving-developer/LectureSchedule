@@ -18,7 +18,7 @@
           <label>First name</label>
           <input type="text" class="form-control"
           formControlName="firstName"
-          [ngClass]="{'is-invalid': fcontrols.firstName.errors && fcontrols.firstName.touched }"
+          [ngClass]="cssInvalidClass(fcontrols.firstName)"
           placeholder="First name here" />
           <div class="invalid-feedback">
             First name is required
@@ -28,7 +28,7 @@
           <label>Last name</label>
           <input type="text" class="form-control"
           formControlName="lastName"
-          [ngClass]="{'is-invalid': fcontrols.lastName.errors && fcontrols.lastName.touched }"
+          [ngClass]="cssInvalidClass(fcontrols.lastName)"
           placeholder="Last name here" />
           <div class="invalid-feedback">
             Last name is required
@@ -39,7 +39,7 @@
         <label for="">Email:</label>
         <input class="form-control" type="text"
         formControlName="email"
-        [ngClass]="{'is-invalid': fcontrols.email.errors && fcontrols.email.touched }"
+        [ngClass]="cssInvalidClass(fcontrols.email)"
         placeholder="Email" />
         <div *ngIf="fcontrols.email.errors?.required && fcontrols.email.touched" class="invalid-feedback">
           Email is required
@@ -52,7 +52,7 @@
         <label for="">User:</label>
         <input class="form-control" type="text"
         formControlName="userName"
-        [ngClass]="{'is-invalid': fcontrols.userName.errors && fcontrols.userName.touched }"
+        [ngClass]="cssInvalidClass(fcontrols.userName)"
         placeholder="User name" />
         <div class="invalid-feedback">
           User is required
@@ -63,7 +63,7 @@
           <label for="">Password:</label>
           <input class="form-control" type="password"
           formControlName="password"
-          [ngClass]="{'is-invalid': fcontrols.password.errors && fcontrols.password.touched }"
+          [ngClass]="cssInvalidClass(fcontrols.password)"
           placeholder="Insert password" />
           <div *ngIf="fcontrols.password.errors?.required && fcontrols.password.touched" class="invalid-feedback">
             Password is required
@@ -76,7 +76,7 @@
           <label for="">Confirm password:</label>
           <input class="form-control" type="password"
           formControlName="confirmPassword"
-          [ngClass]="{'is-invalid': fcontrols.confirmPassword.errors && fcontrols.confirmPassword.touched }"
+          [ngClass]="cssInvalidClass(fcontrols.confirmPassword)"
           placeholder="Repeat password" />
           <div *ngIf="fcontrols.confirmPassword.errors?.required && fcontrols.confirmPassword.touched" class="invalid-feedback">
             Confirm password is required

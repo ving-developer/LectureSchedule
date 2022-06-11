@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
 
 @Component({
@@ -38,5 +38,9 @@ export class RegistrationComponent implements OnInit {
 
     public controlAgreement(): void{
       this.dontAgree = !this.dontAgree;
+    }
+
+    cssInvalidClass(formControl: FormControl): any{
+      return {'is-invalid': formControl.errors && formControl.touched};
     }
   }
