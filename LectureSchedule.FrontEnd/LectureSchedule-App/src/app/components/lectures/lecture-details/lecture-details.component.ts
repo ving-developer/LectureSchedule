@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LectureDetailsComponent implements OnInit {
   form?: FormGroup
   lecture = {} as Lecture
+  saveState = 'post'
 
   get f(): any{
     return this.form?.controls
@@ -65,6 +66,7 @@ export class LectureDetailsComponent implements OnInit {
   loadLecture(): void {
     const lectureIdParam = this.router.snapshot.paramMap.get('id');
     if(lectureIdParam){
+      this.saveState = 'put';
       this.spinner.show();
       this.lectureService.getLectureById(+lectureIdParam).subscribe({
         next: (lecture: Lecture) => {
@@ -82,5 +84,35 @@ export class LectureDetailsComponent implements OnInit {
 
   getDateValue(newDate: Date){
     console.log('data:' + newDate);
+  }
+
+  saveChanges(): void{
+    this.spinner.show();
+    if(this.form?.valid){
+      if(this.saveState == 'post'){
+        this.lecture = {... this.form.value }
+        this.lectureService.post(this.lecture).subscribe({
+          next: () => this.toastr.success('Lecture has been created','Success!'),
+          error: (error: any) => {
+            console.log(error);
+            this.spinner.hide();
+            this.toastr.error('Error when creating lecture.','Oh no!');
+          },
+          complete: () => this.spinner.hide()
+        });
+      } else {
+        this.lecture = {id: this.lecture.id, ... this.form.value }
+        this.lectureService.put(this.lecture).subscribe({
+          next: () => this.toastr.info('Lecture has been saved','Success!'),
+          error: (error: any) => {
+            console.log(error);
+            this.spinner.hide();
+            this.toastr.error('Error when saving lecture.','Oh no!');
+          },
+          complete: () => this.spinner.hide()
+        });
+      }
+
+    }
   }
 }

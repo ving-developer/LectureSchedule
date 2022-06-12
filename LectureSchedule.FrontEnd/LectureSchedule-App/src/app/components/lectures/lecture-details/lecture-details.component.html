@@ -108,7 +108,7 @@
         class="btn btn-outline-secondary me-auto border">
           Discard Changes
         </button>
-        <button class="btn btn-success" [disabled]="!form?.valid">
+        <button class="btn btn-success" [disabled]="!form?.valid" (click)="saveChanges()">
           <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
           Save Changes
         </button>

@@ -28,8 +28,8 @@ export class LectureService {
     return this._http.post<Lecture>(this.baseUrl, lecture);
   }
 
-  put(id: number, lecture: Lecture): Observable<any>{
-    return this._http.put<any>(`${this.baseUrl}/${id}`,lecture);
+  put(lecture: Lecture): Observable<any>{
+    return this._http.put<any>(`${this.baseUrl}/${lecture.id}`,lecture);
   }
 
   delete(id: number): Observable<any>{
