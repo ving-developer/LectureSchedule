@@ -11,6 +11,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,7 +71,8 @@ import { RegistrationComponent } from './components/user/registration/registrati
       progressBar: true
     }),
     NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [LectureService],
   bootstrap: [AppComponent],

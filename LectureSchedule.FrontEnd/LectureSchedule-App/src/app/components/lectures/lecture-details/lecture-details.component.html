@@ -47,7 +47,9 @@
           <label>Date</label>
           <input type="datetime" class="form-control"
           [ngClass]="cssInvalidClass(f.date)"
-          formControlName="date" placeholder="Lecture date and hour">
+          formControlName="date" placeholder="Lecture date and hour"
+          bsDatepicker
+          [bsConfig]="bsConfig">
           <div *ngIf="f.date.errors?.required" class="invalid-feedback">
             Date is required
           </div>

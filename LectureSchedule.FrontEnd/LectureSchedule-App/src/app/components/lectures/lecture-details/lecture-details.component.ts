@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Constants } from '@app/utils/constants';
 
 @Component({
   selector: 'app-lecture-details',
@@ -11,6 +12,15 @@ export class LectureDetailsComponent implements OnInit {
 
   get f(): any{
     return this.form?.controls
+  }
+
+  get bsConfig(): any{
+    return {
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: Constants.DATE_TIME_FMT,
+      containerClass: 'theme-green'
+    };
   }
 
   constructor(private builder: FormBuilder) { }
