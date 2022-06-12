@@ -74,11 +74,9 @@ export class LectureDetailsComponent implements OnInit {
           this.form?.patchValue(this.lecture);
         },
         error: () => {
-          this.spinner.hide();
           this.toastr.error('Can\'t find this lecture.', 'Oh no!');
-        },
-        complete: () => this.spinner.hide(),
-      });
+        }
+      }).add(() => this.spinner.hide());
     }
   }
 
@@ -95,22 +93,18 @@ export class LectureDetailsComponent implements OnInit {
           next: () => this.toastr.success('Lecture has been created','Success!'),
           error: (error: any) => {
             console.log(error);
-            this.spinner.hide();
             this.toastr.error('Error when creating lecture.','Oh no!');
-          },
-          complete: () => this.spinner.hide()
-        });
+          }
+        }).add(() => this.spinner.hide());
       } else {
         this.lecture = {id: this.lecture.id, ... this.form.value }
         this.lectureService.put(this.lecture).subscribe({
           next: () => this.toastr.info('Lecture has been saved','Success!'),
           error: (error: any) => {
             console.log(error);
-            this.spinner.hide();
             this.toastr.error('Error when saving lecture.','Oh no!');
-          },
-          complete: () => this.spinner.hide()
-        });
+          }
+        }).add(() => this.spinner.hide());
       }
 
     }

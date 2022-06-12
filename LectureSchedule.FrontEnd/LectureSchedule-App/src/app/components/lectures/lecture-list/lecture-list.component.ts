@@ -55,18 +55,13 @@ export class LectureListComponent implements OnInit {
   }
 
   public loadLectures() : void {
-    const observer = {
+    this.lectureService.getLectures().subscribe({
       next: (lectures: Lecture[]) => {
         this.lectures = lectures;
         this.filteredLectures = lectures;
       },
-      error: (error: any) => {
-        this.spinner.hide();
-        this.toastr.error('An error has occurred.', 'Ops!');
-      },
-      complete: () => this.spinner.hide()
-    };
-    this.lectureService.getLectures().subscribe(observer);
+      error: () => this.toastr.error('An error has occurred.', 'Ops!')
+    }).add(() => this.spinner.hide());
   }
 
   public openDeleteModal(template: TemplateRef<any>, id: number): void{
@@ -79,15 +74,12 @@ export class LectureListComponent implements OnInit {
     this.lectureService.delete(this.lectureId).subscribe({
         next: () => {
           this.toastr.warning('Lecture has been deleted.', 'Sucess!');
-          this.spinner.hide();
           this.loadLectures();
         },
         error: (error: any) => {
           this.toastr.error('Error when deleting lecture.', 'Failure!');
-          this.spinner.hide();
-        },
-        complete: () => this.spinner.hide()
-    });
+        }
+    }).add(() => this.spinner.hide());
 
     this.modalRef?.hide();
   }
