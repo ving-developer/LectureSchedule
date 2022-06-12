@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Lecture } from '@app/models/Lecture';
+import { LectureService } from '@app/services/lecture.service';
 import { Constants } from '@app/utils/constants';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lecture-details',
@@ -9,6 +14,7 @@ import { Constants } from '@app/utils/constants';
 })
 export class LectureDetailsComponent implements OnInit {
   form?: FormGroup
+  lecture = {} as Lecture
 
   get f(): any{
     return this.form?.controls
@@ -18,14 +24,20 @@ export class LectureDetailsComponent implements OnInit {
     return {
       isAnimated: true,
       adaptivePosition: true,
-      dateInputFormat: Constants.DATE_TIME_FMT,
+      dateInputFormat: 'DD/MM/YYYY hh:mm A',
       containerClass: 'theme-green'
     };
   }
 
-  constructor(private builder: FormBuilder) { }
+  constructor(
+    private builder: FormBuilder,
+    private router: ActivatedRoute,
+    private lectureService: LectureService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.loadLecture();
     this.validation();
   }
 
@@ -48,5 +60,27 @@ export class LectureDetailsComponent implements OnInit {
 
   cssInvalidClass(prop: FormControl): any {
     return { 'is-invalid': prop.errors && prop.touched };
+  }
+
+  loadLecture(): void {
+    const lectureIdParam = this.router.snapshot.paramMap.get('id');
+    if(lectureIdParam){
+      this.spinner.show();
+      this.lectureService.getLectureById(+lectureIdParam).subscribe({
+        next: (lecture: Lecture) => {
+          this.lecture = {...lecture};
+          this.form?.patchValue(this.lecture);
+        },
+        error: () => {
+          this.spinner.hide();
+          this.toastr.error('Can\'t find this lecture.', 'Oh no!');
+        },
+        complete: () => this.spinner.hide(),
+      });
+    }
+  }
+
+  getDateValue(newDate: Date){
+    console.log('data:' + newDate);
   }
 }
