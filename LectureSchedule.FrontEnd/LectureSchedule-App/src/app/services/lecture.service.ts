@@ -23,4 +23,16 @@ export class LectureService {
   getLectureById(id: number): Observable<Lecture>{
     return this._http.get<Lecture>(`${this.baseUrl}/${id}`);
   }
+
+  post(lecture: Lecture): Observable<Lecture>{
+    return this._http.post<Lecture>(this.baseUrl, lecture);
+  }
+
+  put(id: number, lecture: Lecture): Observable<any>{
+    return this._http.put<any>(`${this.baseUrl}/${id}`,lecture);
+  }
+
+  delete(id: number): Observable<any>{
+    return this._http.delete<any>(`${this.baseUrl}/${id}`);
+  }
 }

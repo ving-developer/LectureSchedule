@@ -12,14 +12,14 @@ import { LectureService } from '@app/services/lecture.service';
   styleUrls: ['./lecture-list.component.scss']
 })
 export class LectureListComponent implements OnInit {
-
   public lectures: Lecture[] = [];
   public filteredLectures: Lecture[] = [];
   public imageWidth = 100;
   public imageMargin = 2;
-  public hideImage = true;
-  private listFilterString = '';
+  public hideImage = false;
   public modalRef?: BsModalRef;
+  private listFilterString = '';
+  private lectureId = 0;
 
   public get listFilter(): string{
     return this.listFilterString;
@@ -69,12 +69,26 @@ export class LectureListComponent implements OnInit {
     this.lectureService.getLectures().subscribe(observer);
   }
 
-  public openDeleteModal(template: TemplateRef<any>): void{
+  public openDeleteModal(template: TemplateRef<any>, id: number): void{
     this.modalRef = this.modalService.show(template);
+    this.lectureId = id;
   }
 
   public confirmDelete(): void{
-    this.toastr.warning('Lecture has been deleted.', 'Sucess!');
+    this.spinner.show();
+    this.lectureService.delete(this.lectureId).subscribe({
+        next: () => {
+          this.toastr.warning('Lecture has been deleted.', 'Sucess!');
+          this.spinner.hide();
+          this.loadLectures();
+        },
+        error: (error: any) => {
+          this.toastr.error('Error when deleting lecture.', 'Failure!');
+          this.spinner.hide();
+        },
+        complete: () => this.spinner.hide()
+    });
+
     this.modalRef?.hide();
   }
 
