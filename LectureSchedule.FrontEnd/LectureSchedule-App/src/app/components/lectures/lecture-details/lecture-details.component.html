@@ -5,8 +5,8 @@
         <div class="form-group col-md-6">
           <label>Theme</label>
           <input type="text" class="form-control"
-            [ngClass]="cssInvalidClass(f.theme)"
-            formControlName="theme" placeholder="What the lecture is about">
+          [ngClass]="cssInvalidClass(f.theme)"
+          formControlName="theme" placeholder="What the lecture is about">
           <div class="invalid-feedback" *ngIf="f.theme.errors?.required">
             Theme is required
           </div>
@@ -106,13 +106,116 @@
         <button
         (click)="resetForm()"
         class="btn btn-outline-secondary me-auto border">
-          Discard Changes
-        </button>
-        <button class="btn btn-success" [disabled]="!form?.valid" (click)="saveChanges()">
-          <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
-          Save Changes
-        </button>
+        Discard Changes
+      </button>
+      <button class="btn btn-success" [disabled]="!form?.valid" (click)="saveLectureChanges()">
+        <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
+        Save Changes
+      </button>
+    </div>
+  </div>
+</form>
+</div>
+
+<div *ngIf="saveState == 'put'" class="card rounded shadow-sm mt-4">
+  <div class="p-3">
+    <div class="d-flex border-bottom">
+      <h2 class="me-auto">
+        Ticket Lots of Lecture
+      </h2>
+      <h2>
+        <fa-icon icon="money-bill-wave"></fa-icon>
+      </h2>
+    </div>
+    <p>Click to add new Lots</p>
+    <div class="form-row p-2">
+      <div class="col" [formGroup]="form">
+        <div class="mb-2" formArrayName="ticketLots" *ngFor="let item of ticketLots.controls; let i = index">
+          <fieldset class="form-group" [formGroupName]="i">
+            <legend class="d-flex justify-content-between capitalize">
+              {{
+                getTicketLotName(i)
+              }}
+              <button (click)="removeTicketLot(template, i)" class="p-2 btn btn-outline-warning mb-2 d-flex"
+              tooltip="Excluir Lote"
+              [adaptivePosition]="false"
+              [delay]="500"
+              placement="left">
+              <fa-icon icon="window-close" class="me-1"></fa-icon>
+              <b class="ml-1 d-none d-sm-block">Remove</b>
+            </button>
+          </legend>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Name</label>
+              <input
+              formControlName="name"
+              [ngClass]="cssInvalidClass(ticketLots.get(i+'.name'))"
+              type="text" class="form-control" placeholder="Lote">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Quantity</label>
+              <input
+              formControlName="quantity"
+              [ngClass]="cssInvalidClass(ticketLots.get(i+'.quantity'))"
+              type="text" class="form-control" placeholder="000">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Price</label>
+              <input
+              currencyMask
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align:'left' }"
+              formControlName="price"
+              [ngClass]="cssInvalidClass(ticketLots.get(i+'.price'))"
+              type="text" currencyMask class="form-control" placeholder="$ 0,00">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Start Date</label>
+              <input
+              formControlName="startDate"
+              [bsConfig]="bsConfigTicketLots"
+              bsDatepicker
+              [ngClass]="cssInvalidClass(ticketLots.get(i+'.startDate'))"
+              type="text" class="form-control" placeholder="01/01/2019">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Finish Date</label>
+              <input
+              formControlName="endDate"
+              [bsConfig]="bsConfigTicketLots"
+              bsDatepicker
+              [ngClass]="cssInvalidClass(ticketLots.get(i+'.endDate'))"
+              type="text" class="form-control" placeholder="01/01/2019">
+            </div>
+          </div>
+        </fieldset>
       </div>
     </div>
-  </form>
+  </div>
+  <button class="d-flex btn btn-outline-primary" (click)="addTicketLot()">
+    <fa-icon icon="plus-circle"></fa-icon>
+    <b class="ms-1">Lot</b>
+  </button>
 </div>
+<div class="card-footer">
+  <div class="d-flex">
+    <button class="btn btn-outline-secondary me-auto border">
+      Discard Changes
+    </button>
+    <button [disabled]="!form?.controls.ticketLots.valid" (click)="saveTicketLotsChanges()" class="btn btn-success">
+      Save Changes
+    </button>
+  </div>
+</div>
+</div>
+<br/>
+
+<ng-template #template let-modal>
+  <div class="modal-body text-center">
+    <p>Do you want to delete ticket lot "{{currentTicketLot.name}}"? This operation is irreversible.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="cancelDeleteTicketLot()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDeleteTicketLot()">Confirm</button>
+  </div>
+</ng-template>

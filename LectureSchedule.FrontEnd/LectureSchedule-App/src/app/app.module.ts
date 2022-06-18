@@ -12,6 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxCurrencyModule } from "ngx-currency";
 //components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 //services
 import { LectureService } from './services/lecture.service';
+import { TicketlotService } from './services/ticketlot.service';
 import { LectureDetailsComponent } from './components/lectures/lecture-details/lecture-details.component';
 import { LectureListComponent } from './components/lectures/lecture-list/lecture-list.component';
 import { UserComponent } from './components/user/user.component';
@@ -73,8 +75,9 @@ import { RegistrationComponent } from './components/user/registration/registrati
     NgxSpinnerModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
+    NgxCurrencyModule
   ],
-  providers: [LectureService],
+  providers: [LectureService, TicketlotService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
