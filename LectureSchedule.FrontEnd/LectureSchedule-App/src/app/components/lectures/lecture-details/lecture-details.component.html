@@ -210,7 +210,7 @@
 <br/>
 </div>
 <div class="col-md-4" *ngIf="saveState == 'put'">
-  <div [formGroup]="form" class="card-evento-view shadow-sm">
+  <div [formGroup]="form" class="lecture-card-view shadow-sm">
     <div class="form-row">
       <div class="form-group m-0">
         <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none">
@@ -219,24 +219,24 @@
     <div class="card profile-card-2">
       <div class="card-img-block">
         <img class="image" [src]="imageUrl" (click)="file.click()" class="img-fluid" alt="Card image cap"
-        tooltip="Uplaod de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
+        tooltip="Uplaod new profile image" [adaptivePosition]="false" placement="bottom" />
       </div>
       <div class="card-body pt-3">
         <h4>{{lecture.theme}}</h4>
         <p class="card-text">
-          <b>Local:</b> {{lecture.local}}
+          <b>Location:</b> {{lecture.local}}
           <br>
-          <b>Data:</b> {{lecture.date | DateTimeFormat}}
+          <b>Date:</b> {{lecture.date | DateTimeFormat}}
         </p>
         <hr>
         <p class="card-text">
-          <b>Contatos</b><br>
-          <small class="text-muted">Telefone: {{lecture.phone}}</small>
+          <b>Contacts</b><br>
+          <small class="text-muted">Phone: {{lecture.phone}}</small>
           <br>
-          <small class="text-muted">e-mail: {{lecture.email}}</small>
+          <small class="text-muted">Email: {{lecture.email}}</small>
         </p>
         <p class="card-text">
-          Capacidade:
+          Peoples:
           <small class="text-muted">{{lecture.maxPeopleSupported}}</small>
         </p>
         <div class="row">

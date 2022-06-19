@@ -16,13 +16,7 @@
   border-left: 1px solid #dee2e6;
 }
 
-.card-evento {
-  position: sticky;
-  --default-height: 25px;
-  top: var(--default-height);
-}
-
-.card-evento-view {
+.lecture-card-view {
   position: sticky;
   top: 1rem;
 }
