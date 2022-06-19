@@ -42,7 +42,7 @@
           <tr *ngFor="let lecture of filteredLectures">
             <td class="d-none d-sm-table-cell">
               <img [collapse]="hideImage" [isAnimated]="true"
-              src="assets/{{lecture.imageUrl}}" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
+              [src]="showImage(lecture.imageUrl)" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
             </td>
             <td>{{lecture.theme}}</td>
             <td class="d-none d-md-table-cell">{{lecture.local}}</td>

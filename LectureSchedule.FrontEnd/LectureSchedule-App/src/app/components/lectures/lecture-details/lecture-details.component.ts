@@ -10,6 +10,7 @@ import { Lecture } from '@app/models/Lecture';
 import { TicketLot } from '@app/models/TicketLot';
 import { LectureService } from '@app/services/lecture.service';
 import { TicketlotService } from '@app/services/ticketlot.service';
+import { environment } from '@environments/environment';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +26,9 @@ export class LectureDetailsComponent implements OnInit {
   lecture = {} as Lecture;
   saveState = 'post';
   lectureId = 0;
-  currentTicketLot = { id: 0, name: '', index: 0}
+  currentTicketLot = { id: 0, name: '', index: 0};
+  imageUrl = 'assets/upload-image.png';
+  file!: File;
 
   get f(): any{
     return this.form?.controls
@@ -75,7 +78,6 @@ export class LectureDetailsComponent implements OnInit {
       date : ['', Validators.required],
       maxPeopleSupported : ['', [Validators.required, Validators.max(120000)]],
       adress : ['', Validators.required],
-      imageUrl : ['', Validators.required],
       email : ['', [Validators.required, Validators.email]],
       phone : ['', Validators.required],
       ticketLots: this.builder.array([])
@@ -114,6 +116,9 @@ export class LectureDetailsComponent implements OnInit {
         next: (lecture: Lecture) => {
           this.lecture = {...lecture};
           this.form?.patchValue(this.lecture);
+          if(this.lecture.imageUrl){
+            this.imageUrl = environment.apiURL + '/resources/images/' + this.lecture.imageUrl;
+          }
           this.loadTicketLots();
         },
         error: () => {
@@ -223,5 +228,27 @@ export class LectureDetailsComponent implements OnInit {
 
   getTicketLotName(index: number): string{
     return this.ticketLots.get(index+'.name')?.value ? this.ticketLots.get(index+'.name')?.value : 'New Ticket Lot'
+  }
+
+  onFileChange(event: any){
+    const reader = new FileReader();
+    reader.onload = (event: any) => this.imageUrl = event.target.result;
+    this.file = event.target.files[0];
+    reader.readAsDataURL(this.file);
+    this.uploadImage();
+  }
+
+  uploadImage(){
+    this.spinner.show();
+    this.lectureService.postUpload(this.lectureId,this.file).subscribe({
+      next: () => {
+        this.loadLecture();
+        this.toastr.success("Profile picture has been updated with success","Success!");
+      },
+      error: (error) => {
+        console.error(error);
+        this.toastr.error("Same error has ocurred while updating your profile picture","Oh no!");
+      },
+    }).add(() => this.spinner.hide());
   }
 }

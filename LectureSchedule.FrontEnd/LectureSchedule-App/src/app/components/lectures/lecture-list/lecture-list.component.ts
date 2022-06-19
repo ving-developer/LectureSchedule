@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Lecture } from '@app/models/Lecture';
 import { LectureService } from '@app/services/lecture.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-lecture-list',
@@ -90,5 +91,11 @@ export class LectureListComponent implements OnInit {
 
   public details(id: number): void{
     this.router.navigate([`lectures/details/${id}`]);
+  }
+
+  public showImage(imageUrl: string): string {
+    return imageUrl ?
+      `${environment.apiURL}/resources/images/${imageUrl}` :
+      'assets/no-profile-picture.jpg';
   }
 }

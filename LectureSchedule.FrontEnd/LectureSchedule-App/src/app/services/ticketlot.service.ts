@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TicketLot } from '@app/models/TicketLot';
+import { environment } from '@environments/environment';
 import { Observable, take } from 'rxjs';
 
 @Injectable()
 export class TicketlotService {
 
-  baseUrl = 'https://localhost:5001/TicketLot';
+  baseUrl = environment.apiURL + '/TicketLot';
 
   constructor(private _http: HttpClient) { }
 

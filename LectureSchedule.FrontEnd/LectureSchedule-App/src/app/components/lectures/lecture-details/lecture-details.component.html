@@ -1,214 +1,256 @@
-<div class="card rounded shadow-sm">
-  <form [formGroup]="form">
+<div class="row">
+  <div [ngClass]="{'col-md-8 pe-0': saveState == 'put'}">
+    <div class="card rounded shadow-sm">
+      <form [formGroup]="form">
+        <div class="p-3">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Theme</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.theme)"
+              [(ngModel)]="lecture.theme"
+              formControlName="theme" placeholder="What the lecture is about">
+              <div class="invalid-feedback" *ngIf="f.theme.errors?.required">
+                Theme is required
+              </div>
+              <div class="invalid-feedback" *ngIf="f.theme.errors?.minlength">
+                Theme must contains 4 or more characters
+              </div>
+              <div class="invalid-feedback" *ngIf="f.theme.errors?.maxlength">
+                Theme must contain less than 50 characters
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Location</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.local)"
+              [(ngModel)]="lecture.local"
+              formControlName="local" placeholder="Location of the lecture">
+              <div *ngIf="f.local.errors?.required" class="invalid-feedback">
+                Location is required
+              </div>
+              <div class="invalid-feedback" *ngIf="f.local.errors?.minlength">
+                Location must contains 4 or more characters
+              </div>
+              <div class="invalid-feedback" *ngIf="f.local.errors?.maxlength">
+                Location must contain less than 100 characters
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Adress</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.adress)"
+              [(ngModel)]="lecture.adress"
+              formControlName="adress" placeholder="Address of the lecture location">
+              <div *ngIf="f.adress.errors?.required" class="invalid-feedback">
+                Adress is required
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Date</label>
+              <input type="datetime" class="form-control"
+              [ngClass]="cssInvalidClass(f.date)"
+              [ngModel]="lecture.date | DateTimeFormat"
+              [bsConfig]="bsConfig"
+              formControlName="date" placeholder="Lecture date and hour"
+              bsDatepicker>
+              <div *ngIf="f.date.errors?.required" class="invalid-feedback">
+                Date is required
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label>Peoples</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.maxPeopleSupported)"
+              [(ngModel)]="lecture.maxPeopleSupported"
+              formControlName="maxPeopleSupported" placeholder="Amount of people">
+              <div *ngIf="f.maxPeopleSupported.errors?.required" class="invalid-feedback">
+                Peoples is required
+              </div>
+              <div class="invalid-feedback" *ngIf="f.maxPeopleSupported.errors?.max">
+                The maximum peoples allowed is 120000
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Phone</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.phone)"
+              [(ngModel)]="lecture.phone"
+              formControlName="phone" placeholder="(000) 90000-0000">
+              <div *ngIf="f.phone.errors?.required" class="invalid-feedback">
+                Phone is required
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Email</label>
+              <input type="text" class="form-control"
+              [ngClass]="cssInvalidClass(f.email)"
+              [(ngModel)]="lecture.email"
+              formControlName="email" placeholder="e-mail">
+              <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+                Email is required
+              </div>
+              <div class="invalid-feedback" *ngIf="f.email.errors?.email">
+                Invalid email
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex">
+            <button
+            (click)="resetForm()"
+            class="btn btn-outline-secondary me-auto border">
+            Discard Changes
+          </button>
+          <button class="btn btn-success" [disabled]="!form?.valid" (click)="saveLectureChanges()">
+            <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="saveState == 'put'" class="card rounded shadow-sm mt-3">
     <div class="p-3">
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label>Theme</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.theme)"
-          formControlName="theme" placeholder="What the lecture is about">
-          <div class="invalid-feedback" *ngIf="f.theme.errors?.required">
-            Theme is required
-          </div>
-          <div class="invalid-feedback" *ngIf="f.theme.errors?.minlength">
-            Theme must contains 4 or more characters
-          </div>
-          <div class="invalid-feedback" *ngIf="f.theme.errors?.maxlength">
-            Theme must contain less than 50 characters
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label>Location</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.local)"
-          formControlName="local" placeholder="Location of the lecture">
-          <div *ngIf="f.local.errors?.required" class="invalid-feedback">
-            Location is required
-          </div>
-          <div class="invalid-feedback" *ngIf="f.local.errors?.minlength">
-            Location must contains 4 or more characters
-          </div>
-          <div class="invalid-feedback" *ngIf="f.local.errors?.maxlength">
-            Location must contain less than 100 characters
-          </div>
-        </div>
+      <div class="d-flex border-bottom">
+        <h2 class="me-auto">
+          Ticket Lots of Lecture
+        </h2>
+        <h2>
+          <fa-icon icon="money-bill-wave"></fa-icon>
+        </h2>
       </div>
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label>Adress</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.adress)"
-          formControlName="adress" placeholder="Address of the lecture location">
-          <div *ngIf="f.adress.errors?.required" class="invalid-feedback">
-            Adress is required
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Date</label>
-          <input type="datetime" class="form-control"
-          [ngClass]="cssInvalidClass(f.date)"
-          [ngModel]="lecture.date | DateTimeFormat"
-          [bsConfig]="bsConfig"
-          formControlName="date" placeholder="Lecture date and hour"
-          bsDatepicker>
-          <div *ngIf="f.date.errors?.required" class="invalid-feedback">
-            Date is required
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-2">
-          <label>Peoples</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.maxPeopleSupported)"
-          formControlName="maxPeopleSupported" placeholder="Amount of people">
-          <div *ngIf="f.maxPeopleSupported.errors?.required" class="invalid-feedback">
-            Peoples is required
-          </div>
-          <div class="invalid-feedback" *ngIf="f.maxPeopleSupported.errors?.max">
-            The maximum peoples allowed is 120000
-          </div>
-        </div>
-        <div class="form-group col-md-2">
-          <label>Phone</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.phone)"
-          formControlName="phone" placeholder="(000) 90000-0000">
-          <div *ngIf="f.phone.errors?.required" class="invalid-feedback">
-            Phone is required
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Email</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.email)"
-          formControlName="email" placeholder="e-mail">
-          <div *ngIf="f.email.errors?.required" class="invalid-feedback">
-            Email is required
-          </div>
-          <div class="invalid-feedback" *ngIf="f.email.errors?.email">
-            Invalid email
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Image URL</label>
-          <input type="text" class="form-control"
-          [ngClass]="cssInvalidClass(f.imageUrl)"
-          formControlName="imageUrl" placeholder="image">
-          <div *ngIf="f.imageUrl.errors?.required" class="invalid-feedback">
-            Image url is required
-          </div>
+      <p>Click to add new Lots</p>
+      <div class="form-row p-2">
+        <div class="col" [formGroup]="form">
+          <div class="mb-2" formArrayName="ticketLots" *ngFor="let item of ticketLots.controls; let i = index">
+            <fieldset class="form-group" [formGroupName]="i">
+              <legend class="d-flex justify-content-between capitalize">
+                {{
+                  getTicketLotName(i)
+                }}
+                <button (click)="removeTicketLot(template, i)" class="p-2 btn btn-outline-warning mb-2 d-flex"
+                tooltip="Excluir Lote"
+                [adaptivePosition]="false"
+                [delay]="500"
+                placement="left">
+                <fa-icon icon="window-close" class="me-1"></fa-icon>
+                <b class="ml-1 d-none d-sm-block">Remove</b>
+              </button>
+            </legend>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Name</label>
+                <input
+                formControlName="name"
+                [ngClass]="cssInvalidClass(ticketLots.get(i+'.name'))"
+                type="text" class="form-control" placeholder="Lote">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Quantity</label>
+                <input
+                formControlName="quantity"
+                [ngClass]="cssInvalidClass(ticketLots.get(i+'.quantity'))"
+                type="text" class="form-control" placeholder="000">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Price</label>
+                <input
+                currencyMask
+                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align:'left' }"
+                formControlName="price"
+                [ngClass]="cssInvalidClass(ticketLots.get(i+'.price'))"
+                type="text" currencyMask class="form-control" placeholder="$ 0,00">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Start Date</label>
+                <input
+                formControlName="startDate"
+                [bsConfig]="bsConfigTicketLots"
+                bsDatepicker
+                [ngClass]="cssInvalidClass(ticketLots.get(i+'.startDate'))"
+                type="text" class="form-control" placeholder="01/01/2019">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Finish Date</label>
+                <input
+                formControlName="endDate"
+                [bsConfig]="bsConfigTicketLots"
+                bsDatepicker
+                [ngClass]="cssInvalidClass(ticketLots.get(i+'.endDate'))"
+                type="text" class="form-control" placeholder="01/01/2019">
+              </div>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <div class="d-flex">
-        <button
-        (click)="resetForm()"
-        class="btn btn-outline-secondary me-auto border">
+    <button class="d-flex btn btn-outline-primary" (click)="addTicketLot()">
+      <fa-icon icon="plus-circle"></fa-icon>
+      <b class="ms-1">Lot</b>
+    </button>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex">
+      <button class="btn btn-outline-secondary me-auto border">
         Discard Changes
       </button>
-      <button class="btn btn-success" [disabled]="!form?.valid" (click)="saveLectureChanges()">
-        <!-- <span class="spinner-border spinner-border-sm me-1"></span> -->
+      <button [disabled]="!form?.controls.ticketLots.valid" (click)="saveTicketLotsChanges()" class="btn btn-success">
         Save Changes
       </button>
     </div>
   </div>
-</form>
 </div>
-
-<div *ngIf="saveState == 'put'" class="card rounded shadow-sm mt-4">
-  <div class="p-3">
-    <div class="d-flex border-bottom">
-      <h2 class="me-auto">
-        Ticket Lots of Lecture
-      </h2>
-      <h2>
-        <fa-icon icon="money-bill-wave"></fa-icon>
-      </h2>
+<br/>
+</div>
+<div class="col-md-4" *ngIf="saveState == 'put'">
+  <div [formGroup]="form" class="card-evento-view shadow-sm">
+    <div class="form-row">
+      <div class="form-group m-0">
+        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none">
+      </div>
     </div>
-    <p>Click to add new Lots</p>
-    <div class="form-row p-2">
-      <div class="col" [formGroup]="form">
-        <div class="mb-2" formArrayName="ticketLots" *ngFor="let item of ticketLots.controls; let i = index">
-          <fieldset class="form-group" [formGroupName]="i">
-            <legend class="d-flex justify-content-between capitalize">
-              {{
-                getTicketLotName(i)
-              }}
-              <button (click)="removeTicketLot(template, i)" class="p-2 btn btn-outline-warning mb-2 d-flex"
-              tooltip="Excluir Lote"
-              [adaptivePosition]="false"
-              [delay]="500"
-              placement="left">
-              <fa-icon icon="window-close" class="me-1"></fa-icon>
-              <b class="ml-1 d-none d-sm-block">Remove</b>
-            </button>
-          </legend>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label>Name</label>
-              <input
-              formControlName="name"
-              [ngClass]="cssInvalidClass(ticketLots.get(i+'.name'))"
-              type="text" class="form-control" placeholder="Lote">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Quantity</label>
-              <input
-              formControlName="quantity"
-              [ngClass]="cssInvalidClass(ticketLots.get(i+'.quantity'))"
-              type="text" class="form-control" placeholder="000">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Price</label>
-              <input
-              currencyMask
-              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align:'left' }"
-              formControlName="price"
-              [ngClass]="cssInvalidClass(ticketLots.get(i+'.price'))"
-              type="text" currencyMask class="form-control" placeholder="$ 0,00">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Start Date</label>
-              <input
-              formControlName="startDate"
-              [bsConfig]="bsConfigTicketLots"
-              bsDatepicker
-              [ngClass]="cssInvalidClass(ticketLots.get(i+'.startDate'))"
-              type="text" class="form-control" placeholder="01/01/2019">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Finish Date</label>
-              <input
-              formControlName="endDate"
-              [bsConfig]="bsConfigTicketLots"
-              bsDatepicker
-              [ngClass]="cssInvalidClass(ticketLots.get(i+'.endDate'))"
-              type="text" class="form-control" placeholder="01/01/2019">
-            </div>
+    <div class="card profile-card-2">
+      <div class="card-img-block">
+        <img class="image" [src]="imageUrl" (click)="file.click()" class="img-fluid" alt="Card image cap"
+        tooltip="Uplaod de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
+      </div>
+      <div class="card-body pt-3">
+        <h4>{{lecture.theme}}</h4>
+        <p class="card-text">
+          <b>Local:</b> {{lecture.local}}
+          <br>
+          <b>Data:</b> {{lecture.date | DateTimeFormat}}
+        </p>
+        <hr>
+        <p class="card-text">
+          <b>Contatos</b><br>
+          <small class="text-muted">Telefone: {{lecture.phone}}</small>
+          <br>
+          <small class="text-muted">e-mail: {{lecture.email}}</small>
+        </p>
+        <p class="card-text">
+          Capacidade:
+          <small class="text-muted">{{lecture.maxPeopleSupported}}</small>
+        </p>
+        <div class="row">
+          <div class="icon-block col-md-8 iconesSociais">
+            <a href="">
+              <i class=""></i>
+            </a>
           </div>
-        </fieldset>
+        </div>
       </div>
     </div>
   </div>
-  <button class="d-flex btn btn-outline-primary" (click)="addTicketLot()">
-    <fa-icon icon="plus-circle"></fa-icon>
-    <b class="ms-1">Lot</b>
-  </button>
-</div>
-<div class="card-footer">
-  <div class="d-flex">
-    <button class="btn btn-outline-secondary me-auto border">
-      Discard Changes
-    </button>
-    <button [disabled]="!form?.controls.ticketLots.valid" (click)="saveTicketLotsChanges()" class="btn btn-success">
-      Save Changes
-    </button>
-  </div>
 </div>
 </div>
-<br/>
 
 <ng-template #template let-modal>
   <div class="modal-body text-center">
