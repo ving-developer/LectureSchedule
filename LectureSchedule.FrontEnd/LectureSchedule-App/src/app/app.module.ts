@@ -1,7 +1,7 @@
 //angular
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 //angular bootstrap
@@ -36,6 +36,8 @@ import { LectureListComponent } from './components/lectures/lecture-list/lecture
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -77,8 +79,12 @@ import { RegistrationComponent } from './components/user/registration/registrati
     BsDatepickerModule.forRoot(),
     NgxCurrencyModule
   ],
-  providers: [LectureService, TicketlotService],
-  bootstrap: [AppComponent],
+  providers: [
+    LectureService,
+    TicketlotService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(library: FaIconLibrary){

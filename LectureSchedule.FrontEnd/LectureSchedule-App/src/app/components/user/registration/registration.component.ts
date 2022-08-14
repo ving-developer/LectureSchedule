@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
+import { User } from '@app/models/Identity/User';
+import { UserService } from '@app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -8,12 +12,16 @@ import { ValidatorsFields } from '@app/helpers/ValidatorsFields';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  public dontAgree = true;
+  user = {} as User;
+  dontAgree = true;
   form?: FormGroup;
   get fcontrols() : any { return this.form?.controls;}
 
 
-  constructor(public fb: FormBuilder) { }
+  constructor(public fb: FormBuilder,
+              private userService: UserService,
+              private router: Router,
+              private toaster: ToastrService) { }
 
   ngOnInit(): void {
     this.validate();
@@ -42,5 +50,17 @@ export class RegistrationComponent implements OnInit {
 
     cssInvalidClass(formControl: FormControl): any{
       return {'is-invalid': formControl.errors && formControl.touched};
+    }
+
+    public register(): void {
+      this.user = { ... this.form.value };
+      this.userService.register(this.user).subscribe(
+        () => {
+          this.router.navigateByUrl('/dashboard');
+        },
+        (error: any) => {
+          this.toaster.error(error.error);
+        }
+      );
     }
   }

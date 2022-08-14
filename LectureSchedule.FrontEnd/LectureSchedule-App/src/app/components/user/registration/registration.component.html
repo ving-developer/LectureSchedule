@@ -9,7 +9,7 @@
 
   <div class="col-md-6">
 
-    <form [formGroup]="form" class="p-1 container">
+    <form [formGroup]="form" class="p-1 container" (ngSubmit)="register()">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">User registration</h3>
       </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="row mb-3">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5" [ngClass]="{'disabled' : dontAgree || !form?.valid}">
+          <button [disabled]="!form.valid" type="submit" class="btn btn-lg btn-success btn-block px-5" [ngClass]="{'disabled' : dontAgree || !form?.valid}">
             Register
           </button>
         </div>
