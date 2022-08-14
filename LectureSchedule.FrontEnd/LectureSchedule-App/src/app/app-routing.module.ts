@@ -10,6 +10,7 @@ import { SpeakerComponent } from './components/speaker/speaker.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { UserComponent } from './components/user/user.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {path: 'lectures', redirectTo:'lectures/list'},
@@ -31,8 +32,16 @@ const routes: Routes = [
     ]
   },
   {path: 'contacts', component: ContactsComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'speakers', component: SpeakerComponent}
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'speakers',
+    component: SpeakerComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
