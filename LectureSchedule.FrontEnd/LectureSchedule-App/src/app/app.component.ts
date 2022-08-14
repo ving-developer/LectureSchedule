@@ -11,6 +11,6 @@ export class AppComponent {
   constructor(private router: Router){}
 
   public showNav(): boolean{
-    return !["/user/login", '/user/registration'].includes(this.router.url);
+    return !["/user/login"].includes(this.router.url);
   }
 }
