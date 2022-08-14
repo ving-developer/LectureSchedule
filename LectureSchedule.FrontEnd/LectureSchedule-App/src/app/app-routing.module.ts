@@ -11,37 +11,40 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { UserComponent } from './components/user/user.component';
 import { AuthGuard } from './guard/auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  {path: 'lectures', redirectTo:'lectures/list'},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children:[
+      { path: 'user', redirectTo:'user/login' },
+      { path: 'user/profile', component: ProfileComponent },
+      { path: 'lectures', redirectTo:'lectures/list' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'speakers', component: SpeakerComponent },
+      { path: 'contacts', component: ContactsComponent },
+      {
+        path: 'lectures', component: LecturesComponent,
+        children: [
+          { path: 'details/:id', component: LectureDetailsComponent },
+          { path: 'details', component: LectureDetailsComponent },
+          { path: 'list', component: LectureListComponent }
+        ]
+      },
+    ]
+  },
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'user', component: UserComponent,
     children: [
-      {path: 'login', component: LoginComponent},
-      {path: 'registration', component: RegistrationComponent},
+      { path: 'login', component: LoginComponent },
+      { path: 'registration', component: RegistrationComponent },
     ]
   },
-  {path: 'user/profile', component: ProfileComponent},
-  {
-    path: 'lectures', component: LecturesComponent,
-    children: [
-      {path: 'details/:id', component: LectureDetailsComponent},
-      {path: 'details', component: LectureDetailsComponent},
-      {path: 'list', component: LectureListComponent}
-    ]
-  },
-  {path: 'contacts', component: ContactsComponent},
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'speakers',
-    component: SpeakerComponent,
-    canActivate: [AuthGuard]
-  }
+  { path: 'home', component: HomeComponent },
+  {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({
