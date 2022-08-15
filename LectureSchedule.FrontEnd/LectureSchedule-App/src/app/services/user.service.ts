@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/Identity/User';
+import { UserUpdate } from '@app/models/Identity/UserUpdate';
 import { environment } from '@environments/environment';
 import { map, Observable, ReplaySubject, take } from 'rxjs';
 
@@ -43,6 +44,19 @@ export class UserService {
     this.currentUserSource.next(null);
     this.currentUserSource.complete();
 
+  }
+
+  public getUser(): Observable<UserUpdate>{
+    return this.httpClient.get<UserUpdate>(this.baseUrl+'get-user').pipe(take(1));
+  }
+
+  public updateUser(model: UserUpdate): Observable<void> {
+    return this.httpClient.put<User>(this.baseUrl + 'update', model).pipe(
+      take(1),
+      map((user: User) => {
+        this.setCurrentUser(user);
+      })
+    );
   }
 
   public setCurrentUser(user: User): void{
