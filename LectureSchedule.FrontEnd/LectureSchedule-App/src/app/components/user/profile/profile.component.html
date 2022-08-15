@@ -1,7 +1,7 @@
 <app-title title="Profile" iconProp="user"></app-title>
 
 <div class="card rounded shadow-sm">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -14,11 +14,10 @@
             </a>
           </div>
           <div class="card-body">
-            <div class="h4 text-center mb-3">@UserName</div>
-            <div class="h7 text-bold pb-1"><b>Name:</b> Miracles Lee Cross</div>
+            <div class="h4 text-center mb-3">@{{fcontrols.userName.value}}</div>
+            <div class="h7 text-bold pb-1"><b>Name:</b> {{fcontrols.firstName.value + ' ' + fcontrols.lastName.value}}</div>
             <div class="h7">
-              Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-              etc.
+              {{fcontrols.description.value}}
             </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -68,11 +67,10 @@
           <div class="form-group col-sm-4">
             <label>Title</label>
             <select
-            formControlName="title"
-            [ngClass]="cssInvalidClass(fcontrols.title)"
+            formControlName="graduation"
+            [ngClass]="cssInvalidClass(fcontrols.graduation)"
             class="form-select">
-              <option value=""></option>
-              <option value="0">None</option>
+              <option value="None">None</option>
               <option value="Technologist">Technologist</option>
               <option value="Bachelor">Bachelor</option>
               <option value="Specialist">Specialist</option>
@@ -89,12 +87,12 @@
           <div class="form-group col-sm-4">
             <label>Function</label>
             <select
-            formControlName="function"
-            [ngClass]="cssInvalidClass(fcontrols.function)"
+            formControlName="userFunction"
+            [ngClass]="cssInvalidClass(fcontrols.userFunction)"
             class="form-select">
-              <option value=""></option>
-              <option value="Participante">Participant</option>
-              <option value="Palestrante">Speaker</option>
+              <option value="Undefined">None</option>
+              <option value="Listner">Participant</option>
+              <option value="Speaker">Speaker</option>
             </select>
             <div class="invalid-feedback">
               Function is required
@@ -118,8 +116,8 @@
           <div class="form-group col-sm-4">
             <label>Phone</label>
             <input
-            formControlName="phone"
-            [ngClass]="cssInvalidClass(fcontrols.phone)"
+            formControlName="phoneNumber"
+            [ngClass]="cssInvalidClass(fcontrols.phoneNumber)"
             type="text" class="form-control" />
             <div class="invalid-feedback">
               Phone is required
@@ -177,7 +175,7 @@
         class="btn btn-outline-secondary me-auto border">
           Discard Changes
         </button>
-        <button class="btn btn-success">
+        <button class="btn btn-success" type="submit">
           Save Changes
         </button>
       </div>
