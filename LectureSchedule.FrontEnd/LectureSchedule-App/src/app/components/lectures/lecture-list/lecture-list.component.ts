@@ -7,6 +7,7 @@ import { Lecture } from '@app/models/Lecture';
 import { LectureService } from '@app/services/lecture.service';
 import { environment } from '@environments/environment';
 import { PaginatedResult, Pagination } from '@app/models/Pagination';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lecture-list',
@@ -21,6 +22,7 @@ export class LectureListComponent implements OnInit {
   public modalRef?: BsModalRef;
   public pagination = { currentPage: 1, itemsPerPage: 2, totalItems: 1} as Pagination;
   private lectureId = 0;
+  searchTermChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private lectureService: LectureService,
@@ -30,17 +32,25 @@ export class LectureListComponent implements OnInit {
     private router: Router) { }
 
   filterLectures(lecture: any): void{
-    this.lectureService.getLectures(
-      this.pagination.currentPage,
-      this.pagination.itemsPerPage,
-      lecture.value
-    ).subscribe({
-      next: (paginatedResult: PaginatedResult<Lecture[]>) => {
-        this.lectures = paginatedResult.result;
-        this.pagination = paginatedResult.pagination;
-      },
-      error: () => this.toastr.error('An error has occurred.', 'Ops!')
-    }).add(() => this.spinner.hide());
+    if(this.searchTermChanged.observers.length == 0){
+      this.searchTermChanged.pipe(debounceTime(1000)).subscribe(
+        filterLectures => {
+          this.spinner.show();
+          this.lectureService.getLectures(
+            this.pagination.currentPage,
+            this.pagination.itemsPerPage,
+            filterLectures
+          ).subscribe({
+            next: (paginatedResult: PaginatedResult<Lecture[]>) => {
+              this.lectures = paginatedResult.result;
+              this.pagination = paginatedResult.pagination;
+            },
+            error: () => this.toastr.error('An error has occurred.', 'Ops!')
+          }).add(() => this.spinner.hide());
+        }
+      );
+    }
+    this.searchTermChanged.next(lecture.value);
   }
 
   public ngOnInit(): void {
