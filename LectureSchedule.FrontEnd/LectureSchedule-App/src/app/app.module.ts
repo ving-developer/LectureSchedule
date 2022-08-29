@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxCurrencyModule } from "ngx-currency";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 //components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -79,7 +80,8 @@ import { HomeComponent } from './components/home/home.component';
     NgxSpinnerModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    PaginationModule.forRoot()
   ],
   providers: [
     LectureService,

@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { map, observable, Observable, take } from 'rxjs';
 import { Lecture } from '@app/models/Lecture';
 import { environment } from '@environments/environment';
+import { PaginatedResult } from '@app/models/Pagination';
 
 @Injectable(
   // {providedIn: 'root'} one way of receiving LectureService by dependency injection. The best approach is including in module.ts
@@ -13,16 +14,27 @@ export class LectureService {
 
   constructor(private _http: HttpClient) { }
 
-  getLectures(): Observable<Lecture[]>{
+  getLectures(page?:number, itemsPerPage?:number, term?: string): Observable<PaginatedResult<Lecture[]>>{
+    const paginatedResult: PaginatedResult<Lecture[]> = new PaginatedResult<Lecture[]>();
+    let params = new HttpParams;
+    if(page != null && itemsPerPage != null){
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+    if(term && term !== '')
+      params = params.append('term', term);
     return this._http
-    .get<Lecture[]>(this.baseUrl)
-    .pipe(take(1));
-  }
-
-  getLecturesByTheme(theme: string): Observable<Lecture[]>{
-    return this._http
-    .get<Lecture[]>(`${this.baseUrl}/search-theme?theme=${theme}`)
-    .pipe(take(1));;
+    .get<Lecture[]>(this.baseUrl, {observe: 'response', params: params})
+    .pipe(take(1),
+          map(
+            (response) =>{
+              paginatedResult.result = response.body;
+              if(response.headers.has('Pagination')){
+                paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+              }
+              return paginatedResult;
+            }
+    ));
   }
 
   getLectureById(id: number): Observable<Lecture>{

@@ -9,7 +9,7 @@
         <input
         type="text"
         class="form-control"
-        [(ngModel)]="listFilter"
+        (input)="filterLectures($event.target)"
         placeholder="Find by name or theme">
       </div>
     </div>
@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody *ngIf="lectures.length">
-          <tr *ngFor="let lecture of filteredLectures">
+          <tr *ngFor="let lecture of lectures">
             <td class="d-none d-sm-table-cell">
               <img [collapse]="hideImage" [isAnimated]="true"
               [src]="showImage(lecture.imageUrl)" [style.width.px]="imageWidth" [style.margin.px]="imageMargin"/>
@@ -67,16 +67,31 @@
           </tr>
         </tfoot>
       </table>
-    </div>
-  </div>
+      <div class="d-flex justify-content-center">
+        <pagination [boundaryLinks]="true"
+          [totalItems]="pagination.totalItems"
+          [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage"
+          (pageChanged)="pageChanged($event)"
+          [align]="true"
+          pageBtnClass="btn"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;">
+        </pagination>
+      </div>
 
-  <!-- Modal -->
-  <ng-template #content let-modal>
-    <div class="modal-body text-center">
-      <p>Do you want to delete lecture? This operation is irreversible.</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" (click)="cancelDelete()">Cancel</button>
-      <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
-    </div>
-  </ng-template>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <p>Do you want to delete lecture? This operation is irreversible.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="cancelDelete()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
+  </div>
+</ng-template>

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Lecture } from '@app/models/Lecture';
 import { LectureService } from '@app/services/lecture.service';
 import { environment } from '@environments/environment';
+import { PaginatedResult, Pagination } from '@app/models/Pagination';
 
 @Component({
   selector: 'app-lecture-list',
@@ -14,22 +15,12 @@ import { environment } from '@environments/environment';
 })
 export class LectureListComponent implements OnInit {
   public lectures: Lecture[] = [];
-  public filteredLectures: Lecture[] = [];
   public imageWidth = 100;
   public imageMargin = 2;
   public hideImage = false;
   public modalRef?: BsModalRef;
-  private listFilterString = '';
+  public pagination = { currentPage: 1, itemsPerPage: 2, totalItems: 1} as Pagination;
   private lectureId = 0;
-
-  public get listFilter(): string{
-    return this.listFilterString;
-  }
-
-  public set listFilter(value: string){
-    this.listFilterString = value;
-    this.filteredLectures = this.listFilter ? this.filterLectures(this.listFilterString) : this.lectures;
-  }
 
   constructor(
     private lectureService: LectureService,
@@ -38,16 +29,21 @@ export class LectureListComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router) { }
 
-  filterLectures(filter: string): Lecture[]{
-    filter = filter.toLowerCase();
-    return this.lectures.filter(
-      (lecture: Lecture) => lecture.theme.toLowerCase().indexOf(filter) !== -1 ||
-            lecture.local.toLowerCase().indexOf(filter) !== -1
-    );
+  filterLectures(lecture: any): void{
+    this.lectureService.getLectures(
+      this.pagination.currentPage,
+      this.pagination.itemsPerPage,
+      lecture.value
+    ).subscribe({
+      next: (paginatedResult: PaginatedResult<Lecture[]>) => {
+        this.lectures = paginatedResult.result;
+        this.pagination = paginatedResult.pagination;
+      },
+      error: () => this.toastr.error('An error has occurred.', 'Ops!')
+    }).add(() => this.spinner.hide());
   }
 
   public ngOnInit(): void {
-    this.spinner.show();;
     this.loadLectures();
   }
 
@@ -56,10 +52,11 @@ export class LectureListComponent implements OnInit {
   }
 
   public loadLectures() : void {
-    this.lectureService.getLectures().subscribe({
-      next: (lectures: Lecture[]) => {
-        this.lectures = lectures;
-        this.filteredLectures = lectures;
+    this.spinner.show();
+    this.lectureService.getLectures(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe({
+      next: (paginatedResult: PaginatedResult<Lecture[]>) => {
+        this.lectures = paginatedResult.result;
+        this.pagination = paginatedResult.pagination;
       },
       error: () => this.toastr.error('An error has occurred.', 'Ops!')
     }).add(() => this.spinner.hide());
@@ -83,6 +80,11 @@ export class LectureListComponent implements OnInit {
     }).add(() => this.spinner.hide());
 
     this.modalRef?.hide();
+  }
+
+  public pageChanged(event: any): void{
+    this.pagination.currentPage = event.page;
+    this.loadLectures();
   }
 
   public cancelDelete(): void{
